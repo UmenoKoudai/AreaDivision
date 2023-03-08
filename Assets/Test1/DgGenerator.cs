@@ -9,9 +9,9 @@ public class DgGenerator : MonoBehaviour
 
     void Start()
     {
-        _layer = new Layer2D();
+        _layer = new Layer2D(10,10);
         _divList = new List<DgDivision>();
-        _layer.Fill(2);
+        _layer.Fill(1);
     }
 
     void CreateDivision(int left, int top, int right, int bottom)
