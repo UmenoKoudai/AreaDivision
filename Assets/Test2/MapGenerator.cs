@@ -219,6 +219,110 @@ public class MapGenerator
 
     private void TrimPassList(ref int[,] map)
     {
+        for(int i = passList.Count - 1; i >= 0; i--)
+        {
+            Range pass = passList[i]; //OutOfIndexƒGƒ‰[(230308@11:55)
+            bool isVertical = pass.GetWidthY() > 1;
 
+            bool isTrimTarget = true;
+            if(isVertical)
+            {
+                int x = pass.Start._x;
+                for(int y = pass.Start._y; y < pass.End._y; y++)
+                {
+                    if(map[x - 1, y] == 1 || map[x + 1, y] == 1)
+                    {
+                        isTrimTarget = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                int y = pass.Start._y;
+                for(int x = pass.Start._x; x < pass.End._x; x++)
+                {
+                    if(map[x, y - 1] == 1 || map[x, y + 1] == 1)
+                    {
+                        isTrimTarget = false;
+                        break;
+                    }
+                }
+            }
+
+            if(isTrimTarget)
+            {
+                passList.Remove(pass);
+
+                if(isVertical)
+                {
+                    int x = pass.Start._x;
+                    for(int y = pass.Start._y; y < pass.End._y; y++)
+                    {
+                        map[x, y] = 0;
+                    }
+                }
+                else
+                {
+                    int y = pass.Start._y;
+                    for(int x = pass.Start._x; x < pass.End._x; x++)
+                    {
+                        map[x, y] = 0;
+                    }
+                }
+            }
+        }
+
+        for(int x = 0; x < _mapSizeX - 1; x++)
+        {
+            if(map[x, 0] == 1)
+            {
+                for(int y = 0; y < _mapSizeY; y++)
+                {
+                    if(map[x - 1, y] == 1 || map[x + 1, y] == 1)
+                    {
+                        break;
+                    }
+                    map[x, y] = 0;
+                }
+            }
+            if(map[x, _mapSizeY - 1] == 1)
+            {
+                for(int y = _mapSizeY - 1; y >= 0; y--)
+                {
+                    if(map[x - 1, y] == 1 || map[x + 1, y] == 1)
+                    {
+                        break;
+                    }
+                    map[x, y] = 0;
+                }
+            }
+        }
+
+        for(int y = 0; y < _mapSizeY - 1; y++)
+        {
+            if(map[0, y] == 1)
+            {
+                for(int x = 0; x < _mapSizeY; x++)
+                {
+                    if(map[x, y - 1] == 1 || map[x, y + 1] == 1)
+                    {
+                        break;
+                    }
+                    map[x, y] = 0;
+                }
+            }
+            if(map[_mapSizeX - 1, y] == 1)
+            {
+                for(int x = _mapSizeX - 1; x >= 0; x++)
+                {
+                    if(map[x, y - 1] == 1 || map[x, y + 1] == 1)
+                    {
+                        break;
+                    }
+                    map[x, y] = 0;
+                }
+            }
+        }
     }
 }
