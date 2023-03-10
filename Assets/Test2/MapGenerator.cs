@@ -38,22 +38,22 @@ public class MapGenerator
             }
         }
 
-        foreach(Range roomPass in roomPassList)
+        foreach (Range roomPass in roomPassList)
         {
-            for(int x = roomPass.Start._x; x < roomPass.End._y; x++)
+            for (int x = roomPass.Start._x; x < roomPass.End._y; x++)
             {
-                for(int y = roomPass.Start._y; y < roomPass.End._y; y++)
+                for (int y = roomPass.Start._y; y < roomPass.End._y; y++)
                 {
                     map[x, y] = 1;
                 }
             }
         }
 
-        foreach(Range room in roomList)
+        foreach (Range room in roomList)
         {
-            for(int x = room.Start._x; x < room.End._x; x++)
+            for (int x = room.Start._x; x < room.End._x; x++)
             {
-                for(int y = room.Start._y; y < room.End._y; y++)
+                for (int y = room.Start._y; y < room.End._y; y++)
                 {
                     map[x, y] = 1;
                 }
@@ -221,7 +221,7 @@ public class MapGenerator
     {
         for(int i = passList.Count - 1; i >= 0; i--)
         {
-            Range pass = passList[i]; //OutOfIndexƒGƒ‰[(230308@11:55)
+            Range pass = passList[i];
             bool isVertical = pass.GetWidthY() > 1;
 
             bool isTrimTarget = true;

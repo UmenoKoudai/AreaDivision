@@ -10,9 +10,10 @@ public class SceneInitaializer : MonoBehaviour
     //部屋の最大数
     public const int MAX_ROOM_NUMBER = 6;
 
-    [SerializeField] int _mapSizeX;
-    [SerializeField] int _mapSizeY;
-    [SerializeField] int _maxRoom;
+    [Header("マップの情報")]
+    [SerializeField, Tooltip("マップのサイズX")] int _mapSizeX;
+    [SerializeField, Tooltip("マップのサイズY")] int _mapSizeY;
+    [SerializeField, Tooltip("部屋の数")] int _maxRoom;
     //クリエイトするオブジェクト(プレイヤー、壁、床)
     public GameObject _player;
     private GameObject _floorPrefab;
