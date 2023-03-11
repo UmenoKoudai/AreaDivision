@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+//オブジェクトの座標を格納しておくクラス
 public class Position
 {
+    //参照できるようにプロパティ化
     public int _x { get; set; }
     public int _y { get; set; }
 
+    //変数に値を代入するメソッド
     public Position(int x, int y)
     {
         this._x = x;
