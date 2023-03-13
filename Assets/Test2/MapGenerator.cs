@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,13 +65,17 @@ public class MapGenerator
 
     public void CreateRange(int maxRoom)
     {
+        //区画の初期値としてマップの全体を入れる
         rangeList.Add(new Range(0, 0, _mapSizeX - 1, _mapSizeY - 1));
 
         bool isDevided;
         do
         {
+            //縦➤横の順番で部屋を区切る。1つも区切らなかったら終了
             isDevided = DevideRange(false);
             isDevided = DevideRange(true) || isDevided;
+
+            //もしくは最大区画数を超えたら終了
             if (rangeList.Count >= maxRoom)
             {
                 break;
@@ -83,9 +87,11 @@ public class MapGenerator
     {
         bool isDevided = false;
 
+        //区画ごとに切るかどうか判定する
         List<Range> newRangeList = new List<Range>();
         foreach(Range range in rangeList)
         {
+            //これ以上分割出来ない場合はスキップ
             if(isVertical && range.GetWidthY() < MINIMUM_RANGE_WIDTH * 2 + 1)
             {
                 continue;
@@ -97,16 +103,21 @@ public class MapGenerator
 
             System.Threading.Thread.Sleep(1);
 
+            //40%の確率で分割しない　ただし、区画の数は必ず1つ作る
             if (rangeList.Count > 1 && RogueUtils.RandomJadge(0.4f))
             {
                 continue;
             }
 
+            //縦の場合と横の場合で持ってくる数値が違うので三項演算子で判定する
             int length = isVertical ? range.GetWidthY() : range.GetWidthX();
+
             int margin = length - MINIMUM_RANGE_WIDTH * 2;
+            //縦の場合と横の場合で持ってくる数値が違うので三項演算子で判定する
             int baseIndex = isVertical ? range.Start._y : range.Start._x;
             int devideIndex = baseIndex + MINIMUM_RANGE_WIDTH + RogueUtils.GetRandomInt(1, margin) - 1;
 
+            //縦と横の新しい範囲を格納する
             Range newRange = new Range();
             if(isVertical)
             {
